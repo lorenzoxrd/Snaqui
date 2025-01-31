@@ -22,7 +22,7 @@ while True:
     # Introducir por teclado
     tecla = input("Dirección (W/A/S/D): ").lower()
     
-    # Actualizar dirección 
+    # Guardar direccion
     if tecla == "d" and direccion != "izquierda":
         direccion = "derecha"
     elif tecla == "a" and direccion != "derecha":
@@ -32,8 +32,16 @@ while True:
     elif tecla == "s" and direccion != "arriba":
         direccion = "abajo"
     
-    # Mover cabeza 
-    
+    # comprobar direccion y movimiento
+    cabeza = serpiente[0].copy()
+    if direccion == "derecha":
+        cabeza[0] += 1
+    elif direccion == "izquierda":
+        cabeza[0] -= 1
+    elif direccion == "arriba":
+        cabeza[1] -= 1
+    elif direccion == "abajo":
+        cabeza[1] += 1
     
     # Verificar colisiones
     if (cabeza in serpiente or 
