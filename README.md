@@ -1,5 +1,6 @@
 # Snaqui 🐍
 **Snaqui** es un clásico juego de la serpiente ¡Come comida para crecer y evita chocar contra las paredes o contra ti mismo! 
+
 👾 Diseñado en python con estilo retro de pixel art Ideal para revivir la nostalgia con un toque fresco.
 
 ## Teclas de Juego
