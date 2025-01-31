@@ -1,4 +1,4 @@
-# Snaqui
+# Snaqui 🐍
 Juego de la serpiente diseñado en python con estilo retro de pixel art
 # Teclas de Juego
 W: Mover hacia arriba.
