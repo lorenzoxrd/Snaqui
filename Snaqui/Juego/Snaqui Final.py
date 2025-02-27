@@ -136,28 +136,24 @@ def mostrar_pausa():
         ]
         dibujar_botones(botones, ventana)
         
-        for event in pygame.event.get(): # Leer eventos
-            if event.type == pygame.QUIT: # Si se pulsa el boton x de la ventana
-                salir() # Salir del juego
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                salir()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for boton in botones:
-                        if boton.rect.collidepoint(event.pos):
-                            if boton.texto == "Reanudar":
-                                pygame.time.wait(1)  # Espera 1 segundo
-                                ventana.fill(COLORES["NEGRO"])
-                                dibujar_texto("Espera 3 segundos", 20, COLORES["BLANCO"], CONFIG["ANCHO"]//2, CONFIG["ALTO"]//2)
-                                pygame.display.update()  # Actualiza la pantalla para mostrar el texto
-                                pygame.time.wait(3000)  # Espera 3 segundos
-                                return EstadoJuego.PLAYING
-                            elif boton.texto == "Reiniciar":
-                                return 'restart'    
-                            elif boton.texto == "Menú Principal":
-                                return EstadoJuego.MENU
-                            elif boton.texto == "Salir":
-                                salir()
+                    if boton.rect.collidepoint(event.pos):
+                        if boton.texto == "Reanudar":
+                            # ... (código existente)
+                            return 'resume'  # Cambiado a 'resume'
+                        elif boton.texto == "Reiniciar":
+                            return 'restart'    
+                        elif boton.texto == "Menú Principal":
+                            return 'menu'  # Cambiado a 'menu'
+                        elif boton.texto == "Salir":
+                            salir()
             
         pygame.display.update()
-        reloj.tick(1)
+        reloj.tick(15)
 # Función principal del juego usando tuplas (MODIFICADO)
 def juego():
     snake = [(4, 4)] # Tupla para posición inicial
@@ -179,15 +175,14 @@ def juego():
     while estado_juego == EstadoJuego.PLAYING: 
         ventana.fill(COLORES["NEGRO"]) # Limpiar pantalla
         
-        for event in pygame.event.get(): # Leer eventos
-            
-            if event.type == pygame.QUIT: # Si se pulsa el boton x de la ventana
-                salir() # Salir del juego
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                salir()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     action = mostrar_pausa()
                     if action == 'restart':
-                    # Reiniciar variables del juego
+                        # Reiniciar variables
                         snake = [(4,4)]
                         comida = (random.randint(0, CONFIG["COLUMNAS"]-1), random.randint(0, CONFIG["FILAS"]-1))
                         direccion = None
@@ -195,6 +190,8 @@ def juego():
                         velocidad = 8
                         game_started = False
                         continue  
+                    elif action == 'menu':
+                        return (EstadoJuego.MENU, puntuacion)  # Retornar MENU
                 else:
                     if not game_started and event.key in (pygame.K_RIGHT, pygame.K_d, pygame.K_LEFT, 
                                                         pygame.K_a, pygame.K_UP, pygame.K_w, 
